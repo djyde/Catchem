@@ -8,11 +8,14 @@ const appModel = require('../models/app')
 
 router
   .get('/app', (req, res) => {
-
+    appModel.list()
+      .then(apps => res.send(apps))
+      .catch(err => res.send(err))
   })
 
   .post('/app', (req, res) => {
     const URL = req.body.url
+    console.log(URL)
     appstore.fetchAppInfo(URL)
       .then(info => appModel.add(info))
       .then(app => res.send(app))

@@ -16,33 +16,41 @@ const App = db.define('app', {
 
 App.sync()
 
-const methods = {
-  add(info){
-    return new Promise((resolve, reject) => {
-      App.findOne({
-        where: {
-          name: info.name[0]
-        }
-      })
-      .then(app => {
-        if (app) {
-          // exists
-          reject({
-            status: 2,
-            message: 'App exists'
-          })
-        } else {
-          App.create({
-            name: info.name[0],
-            price: info.price,
-            icon: info.image
-          })
-          .then(app => resolve(app))
-          .catch(err => reject(err))
-        }
-      }).catch(err => reject(err))
+function add(info){
+  return new Promise((resolve, reject) => {
+    App.findOne({
+      where: {
+        name: info.name[0]
+      }
     })
-  }
+    .then(app => {
+      if (app) {
+        // exists
+        reject({
+          status: 2,
+          message: 'App exists'
+        })
+      } else {
+        App.create({
+          name: info.name[0],
+          price: info.price,
+          icon: info.image
+        })
+        .then(app => resolve(app))
+        .catch(err => reject(err))
+      }
+    }).catch(err => reject(err))
+  })
 }
 
-module.exports = methods
+function list(){
+  return new Promise((resovle, reject) => {
+    App.findAll()
+       .then(apps => resovle(apps))
+       .catch(err => reject(err))
+  })
+}
+
+module.exports = {
+  add, list
+}
