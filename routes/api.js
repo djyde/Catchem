@@ -13,8 +13,9 @@ router
 
   .post('/app', (req, res) => {
     const URL = req.body.url
-    appstore.fetchAppInfo(URl)
+    appstore.fetchAppInfo(URL)
       .then(info => appModel.add(info))
+      .then(app => res.send(app))
       .catch(err => res.send(err))
   })
 
