@@ -12,12 +12,14 @@ router-view
 
 <style>
 @import "normalize.css";
+@import "purecss";
 
 body{
   width: 960px;
   margin: 0 auto;
   margin-top: 8em;
   font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 .v-link-active{
