@@ -27,6 +27,7 @@
     "babel-runtime": "^5.8.35",
     "css-loader": "^0.23.1",
     "jade-loader": "^0.8.0",
+    "normalize.css": "^3.0.3",
     "postcss-import": "^8.0.2",
     "postcss-nested": "^1.0.0",
     "postcss-simple-vars": "^1.2.0",

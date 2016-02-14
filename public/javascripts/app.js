@@ -9,10 +9,12 @@ const router = new VueRouter()
 
 router.map({
   '/': {
+    name: 'apps',
     component: require('./app/views/index.vue')
   },
 
   '/services': {
+    name: 'services',
     component: require('./app/views/services.vue')
   }
 })
