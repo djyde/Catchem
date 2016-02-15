@@ -1,6 +1,8 @@
 'use strict'
 
 const request = require('superagent')
+const schedule = require('node-schedule')
+
 const db = require('../db')
 const Sequelize = require('sequelize')
 
@@ -135,8 +137,8 @@ function check(){
   })
 }
 
-check()
-  .then(() => console.log('Checking finsihed'))
+// check every 2 hours
+let job = schedule.scheduleJob('0 */2 * * *', () => check().then(() => console.log('Checking finsihed')))
 
 module.exports = {
   add, list, check, edit
