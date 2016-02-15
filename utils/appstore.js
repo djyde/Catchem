@@ -17,6 +17,7 @@ function fetchAppInfo(url){
           const itemProps = $('*[itemprop]')
 
           let info = {
+            url,
             name: [],
             screenshot: []
           }
