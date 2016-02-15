@@ -103,7 +103,7 @@ export default {
       padding-left: 1em;
       padding-right: 1em;
       padding-top: .4em;
-      padding-bottom: .35em;
+      padding-bottom: .4em;
       outline: none;
     }
 

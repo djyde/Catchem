@@ -69,6 +69,7 @@ export default {
 #integrations{
   width: 60%;
   margin: 0 auto;
+  margin-top: 2em;
   input{
     width: 100%;
     padding: .6em;

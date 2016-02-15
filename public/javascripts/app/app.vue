@@ -1,4 +1,6 @@
 <template lang="jade">
+#logo Catchem
+#slogan Buy APPs at the right time
 header
   nav
     a(v-link="{ name: 'apps', exact: true }") APPS
@@ -19,7 +21,7 @@ body{
   color: #555459;
   width: 960px;
   margin: 0 auto;
-  margin-top: 8em;
+  margin-top: 4em;
   font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
@@ -32,7 +34,20 @@ input{
   border-bottom-color: #000;
 }
 
+#logo{
+  text-align: center;
+  font-size: 4em;
+  font-weight: lighter;
+}
+
+#slogan{
+  text-align: center;
+  margin: .4em;
+  font-size: .8em;
+}
+
 header{
+  margin-top: 2em;
   nav{
     text-align: center;
 
