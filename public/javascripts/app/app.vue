@@ -2,7 +2,7 @@
 header
   nav
     a(v-link="{ name: 'apps', exact: true }") APPS
-    a(v-link="{ name: 'services', exact: true }") SERVICES
+    a(v-link="{ name: 'integrations', exact: true }") INTEGRATIONS
 router-view
 </template>
 
@@ -16,11 +16,16 @@ router-view
 @import "../../../node_modules/nprogress/nprogress.css";
 
 body{
+  color: #555459;
   width: 960px;
   margin: 0 auto;
   margin-top: 8em;
   font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+input{
+  outline: none;
 }
 
 .v-link-active{

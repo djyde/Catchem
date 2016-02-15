@@ -13,9 +13,9 @@ router.map({
     component: require('./app/views/index.vue')
   },
 
-  '/services': {
-    name: 'services',
-    component: require('./app/views/services.vue')
+  '/integrations': {
+    name: 'integrations',
+    component: require('./app/views/integrations.vue')
   }
 })
 

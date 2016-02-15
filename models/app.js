@@ -5,6 +5,8 @@ const Sequelize = require('sequelize')
 
 const appstore = require('../utils/appstore')
 
+const integrationModel = require('./integration')
+
 const App = db.define('app', {
   id: {
     type: Sequelize.UUID,
