@@ -138,7 +138,14 @@ function check(){
 }
 
 // check every 2 hours
-let job = schedule.scheduleJob('0 */2 * * *', () => check().then(() => console.log('Checking finsihed')))
+function cronJob(){
+  check().then(() => console.log('Checking finsihed'))
+}
+
+cronJob()
+
+let job = schedule.scheduleJob('0 */2 * * *', () => cronJob())
+
 
 module.exports = {
   add, list, check, edit
