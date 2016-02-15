@@ -10,6 +10,8 @@ const Integration = db.define('integration', {
     primaryKey: true
   },
   name: Sequelize.STRING,
+  description: Sequelize.TEXT,
+  params: Sequelize.STRING,
 
   // webhook
   url: Sequelize.STRING
@@ -18,26 +20,33 @@ const Integration = db.define('integration', {
 Integration.sync().then(() => {
   Integration.findOrCreate({
     where: {
-      name: 'webhook'
+      name: 'WebHook'
     },
     defaults: {
-      url: ''
+      url: '',
+      params: 'url',
+      description: 'When a price is applied, Catchem will trigger this WebHook, request the specific URL with data.'
     }
   })
 
 })
 
+function edit(id, params){
+  return new Promise((resolve, reject) => {
+    Integration.update(params, {where: { id }})
+      .then(() => resolve())
+      .catch(err => reject(err))
+  })
+}
 
-const webhook = {
-  setUrl(url){
-    return new Promise((resolve, reject) => {
-      Integration.update({ url }, where: { name: 'webhook' })
-        .then(() => resolve)
-        .catch(err => reject(err))
-    })
-  }
+function list(){
+  return new Promise((resolve, reject) => {
+    Integration.findAll()
+      .then(integrations => resolve(integrations))
+      .catch(err => reject(err))
+  })
 }
 
 module.exports = {
-  webhook
+  list, edit
 }

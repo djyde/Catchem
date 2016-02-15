@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+Vue.config.debug = true
+
 import app from './app/app.vue'
 
 const router = new VueRouter()

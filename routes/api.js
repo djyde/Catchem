@@ -5,6 +5,7 @@ var router = express.Router()
 
 const appstore = require('../utils/appstore')
 const appModel = require('../models/app')
+const integrationModel = require('../models/integration')
 
 router
   .get('/app', (req, res) => {
@@ -23,6 +24,17 @@ router
 
   .delete('/app/:id', (req, res) => {
 
+  })
+
+  .get('/integration', (req, res) => {
+    integrationModel.list()
+      .then(integrations => res.send(integrations))
+      .catch(err => res.send(err))
+  })
+  .put('/integration/:id', (req, res) => {
+    integrationModel.edit(req.params.id, req.body)
+      .then(() => res.success())
+      .catch(err => res.send(err))
   })
 
 module.exports = router
