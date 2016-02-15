@@ -13,6 +13,7 @@ router-view
 <style>
 @import "normalize.css";
 @import "purecss";
+@import "../../../node_modules/nprogress/nprogress.css";
 
 body{
   width: 960px;
