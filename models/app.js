@@ -1,5 +1,6 @@
 'use strict'
 
+const request = require('superagent')
 const db = require('../db')
 const Sequelize = require('sequelize')
 
@@ -54,15 +55,15 @@ function add(info){
 }
 
 function list(){
-  return new Promise((resovle, reject) => {
+  return new Promise((resolve, reject) => {
     App.findAll()
-       .then(apps => resovle(apps))
+       .then(apps => resolve(apps))
        .catch(err => reject(err))
   })
 }
 
 function edit(id, info){
-  return new Promise((resovle, reject) => {
+  return new Promise((resolve, reject) => {
     App.update(info, {
       where: {
         id: id
@@ -76,7 +77,7 @@ function edit(id, info){
 function check(){
   console.log('======= Checking begin =======')
 
-  return new Promise((resovle, reject) => {
+  return new Promise((resolve, reject) => {
     let count = 0
     list().then(apps => apps.map((app, index) => {
       appstore.fetchAppInfo(app.url)
@@ -85,7 +86,7 @@ function check(){
           count++
           console.log(count, apps.length)
           if (count === apps.length) {
-            resovle()
+            resolve()
           }
           if (info.price !== app.price) {
             console.log(info.name, '\'s price had changed')
@@ -104,6 +105,22 @@ function check(){
             }
 
             // trigger service interface
+            integrationModel.webhook.getUrl()
+              .then(url => {
+                if (url) {
+                  request
+                    .post(url)
+                    .send({
+                      status,
+                      name: info.name[0],
+                      price: info.price,
+                      description: info.textDescription
+                    })
+                    .end((err) => {
+                      if (err) { console.error('Triggering WebHook failed.', err) }
+                    })
+                }
+              })
 
             // modify app info
             edit(app.id, {

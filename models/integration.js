@@ -47,6 +47,23 @@ function list(){
   })
 }
 
+const webhook = {
+  getUrl(){
+    return new Promise((resolve, reject) => {
+      Integration.findOne({ 
+        where: { 
+          name: 'WebHook' 
+        },
+        attributes: ['url']
+      })
+      .then(webhook => resolve(webhook.url))
+      .catch(err => reject(err))
+    })
+    
+  }
+}
+
 module.exports = {
-  list, edit
+  list, edit,
+  webhook
 }
