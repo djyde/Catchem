@@ -10,7 +10,13 @@ Catchem helps you detect the APPs' price. When the price changes, it will trigge
 
 # Build
 
-Clone this repo and run `npm install && npm run start`
+```bash
+$ npm install
+
+$ npm run build
+
+$ npm run start
+```
 
 # License
 

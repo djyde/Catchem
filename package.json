@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev:static": "webpack --config webpack.base.conf.js -w"
+    "dev:static": "webpack --config webpack.base.conf.js -w",
+    "build": "./node_modules/webpack/bin/webpack.js --config webpack.base.conf.js -p"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -18,7 +19,8 @@
     "sequelize": "^3.19.2",
     "serve-favicon": "~2.3.0",
     "sqlite3": "^3.1.1",
-    "superagent": "^1.7.2"
+    "superagent": "^1.7.2",
+    "webpack": "^1.12.13"
   },
   "devDependencies": {
     "babel-core": "^6.5.2",
@@ -41,7 +43,6 @@
     "vue-html-loader": "^1.1.0",
     "vue-loader": "^8.1.1",
     "vue-router": "^0.7.11",
-    "vue-style-loader": "^1.0.0",
-    "webpack": "^1.12.13"
+    "vue-style-loader": "^1.0.0"
   }
 }
