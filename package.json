@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev:static": "webpack --config webpack.base.conf.js -w",
-    "build": "./node_modules/webpack/bin/webpack.js --config webpack.base.conf.js -p"
+    "build": "mkdir _db && ./node_modules/webpack/bin/webpack.js --config webpack.base.conf.js -p"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
