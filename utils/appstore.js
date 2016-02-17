@@ -4,7 +4,6 @@ const cheerio = require('cheerio')
 const request = require('superagent')
 
 // const URL = 'https://itunes.apple.com/cn/app/shadowmatic/id775888026?mt=8'
-// 
 function search(key){
   return new Promise((resolve, reject) => {
     request
@@ -18,7 +17,7 @@ function search(key){
         if (err) {
           reject(err.error.text)
         } else {
-          resolve(JSON.parse(res.text))
+          resolve(JSON.parse(res.text).results)
         }
       })
   })
@@ -73,3 +72,4 @@ function fetchAppInfo(url){
 }
 
 exports.fetchAppInfo = fetchAppInfo
+exports.search = search

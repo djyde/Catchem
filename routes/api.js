@@ -37,4 +37,10 @@ router
       .catch(err => res.send(err))
   })
 
+  .get('/appstore/:key', (req, res) => {
+    appstore.search(req.params.key)
+      .then(results => res.send(results))
+      .catch(err => res.send(err))
+  })
+
 module.exports = router

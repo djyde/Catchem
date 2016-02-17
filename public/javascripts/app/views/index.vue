@@ -1,8 +1,13 @@
 <template lang="jade">
 #apps
   #add
-    input(v-model="appUrl", @keyup.enter="add" ,type="text", placeholder="App URL")
+    input(v-model="appUrl", @keyup.enter="add" ,type="text", placeholder="App URL", lazy)
     a(href="javascript:void(0)", @click="add") ADD
+    #select
+      .option(v-for="result in searchResults")
+        .icon
+          img(:src="result.artworkUrl100")
+        .name {{ result.trackName }}
   p(v-show="apps.length === 0") loading...
   .pure-g(v-else)
     .pure-u-1-6(v-for="app in apps")
@@ -17,13 +22,25 @@
 import request from 'superagent'
 import notie from 'notie'
 import nprogress from 'nprogress'
+import * as appstore from '../utils/appstore'
 
 export default {
   data(){
     return {
       apps: [],
       adding: false,
-      appUrl: ''
+      appUrl: '',
+      searchResults: []
+    }
+  },
+
+  watch:{
+    appUrl(val, oldVal){
+      if (val && !val.startsWith('http')) {
+        this.search()
+      } else if (!val) {
+        this.searchResults = []
+      }
     }
   },
 
@@ -50,7 +67,20 @@ export default {
             }
           })
       }
+    },
 
+    search(){
+      if (!this.appUrl.startsWith('http')) {
+        request
+          .get(`/api/appstore/${this.appUrl}`)
+          .end((err, res) => {
+            if (err) {
+              notie.alert(3, err, 1.5)
+            } else {
+              this.searchResults = res.body
+            }
+          })
+      }
     }
   },
 
@@ -116,6 +146,17 @@ export default {
       text-decoration: none;
       border-radius: 0 2em 2em 0;
       padding-right: 1em;
+    }
+
+    #select{
+      height: 20em;
+      overflow: auto;
+      .option{
+        border: 1px solid gray;
+        width: 36em;
+        margin: 0 auto;
+        margin-top: .1em;
+      }
     }
   }
 }
