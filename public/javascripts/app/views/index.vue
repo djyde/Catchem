@@ -3,11 +3,13 @@
   #add
     input(v-model="appUrl", @keyup.enter="add" ,type="text", placeholder="App URL", lazy)
     a(href="javascript:void(0)", @click="add") ADD
-    #select
-      .option(v-for="result in searchResults")
-        .icon
-          img(:src="result.artworkUrl100")
-        .name {{ result.trackName }}
+    #select(v-if="appUrl")
+      p(v-if="searching") Searching {{ appUrl }}
+      p(v-if="searchResults.length === 0 && !searching") no result
+      .pure-g.option(v-for="result in searchResults")
+        .pure-u-1-8.icon
+          img.pure-img(:src="result.artworkUrl100")
+        .pure-u-7-8.name {{ result.trackName }}
   p(v-show="apps.length === 0") loading...
   .pure-g(v-else)
     .pure-u-1-6(v-for="app in apps")
@@ -28,6 +30,7 @@ export default {
   data(){
     return {
       apps: [],
+      searching: false,
       adding: false,
       appUrl: '',
       searchResults: []
@@ -70,10 +73,12 @@ export default {
     },
 
     search(){
+      this.searching = true
       if (!this.appUrl.startsWith('http')) {
         request
           .get(`/api/appstore/${this.appUrl}`)
           .end((err, res) => {
+            this.searching = false
             if (err) {
               notie.alert(3, err, 1.5)
             } else {
@@ -149,11 +154,15 @@ export default {
     }
 
     #select{
+      width: 36em;
       height: 20em;
       overflow: auto;
+      z-index: 10;
+      position: absolute;
+      background: beige;
+      margin-left: 12em;
       .option{
         border: 1px solid gray;
-        width: 36em;
         margin: 0 auto;
         margin-top: .1em;
       }

@@ -15,7 +15,8 @@ function search(key){
       })
       .end((err, res) => {
         if (err) {
-          reject(err.error.text)
+          console.log(err.text)
+          reject(err)
         } else {
           resolve(JSON.parse(res.text).results)
         }
